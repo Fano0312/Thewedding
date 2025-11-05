@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Undangan Pernikahan</title>
+
+  <!-- Font huruf tali -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Times New Roman', serif;
+      background-color: #e8d2ae;
+      background-color: #e8d2ae;
+      color: #333;
+    }
+
+    .splash {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url('gereja.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      text-align: center;
+      padding: 20px;
+      overflow-y: auto;
+      color: #5a3e2b; /* warna teks agar kontras di background gambar */
+      text-shadow: 0 0 5px rgba(255,255,255,0.8);
+    }
+
+    .photo-frame {
+      position: relative;
+      width: 250px;
+      height: 250px;
+      margin-bottom: 25px;
+    }
+
+    .photo-frame .bingkai {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 250px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .photo-frame .foto {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      z-index: 1;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .splash p {
+      font-size: 18px;
+      color: #5a3e2b;
+      max-width: 600px;
+      font-weight: normal;
+      margin-bottom: 20px;
+    }
+
+    .splash button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #5a3e2b;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 11;
+    }
+
+    .corner-decor {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-repeat: no-repeat;
+      background-size: contain;
+      z-index: 0;
+      background-image: url('bunga.png');
+    }
+
+    .top-left { top: 0; left: 0; }
+    .top-right { top: 0; right: 0; }
+    .bottom-left { bottom: 0; left: 0; }
+    .bottom-right { bottom: 0; right: 0; }
+
+    .content {
+      display: none;
+      background-image: url('tuhan yesus.jpg');
+      background-size: %;
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-attachment: fixed;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .card {
+      max-width: 700px;
+      margin: auto;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      color: #333;
+    }
+
+    .judul-wedding {
+      text-align: center;
+      font-family: 'Georgia', cursive;
+      font-size: 36px;
+      color: #a0522d;
+      margin-bottom: 30px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .btn-kembali {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 10px 14px;
+      background-color: #5a3e2b;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 100;
+    }
+
+    p {
+      text-align: center;
+    }
+
+    .photo-frame-laki,
+    .photo-frame-wanita {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 30px auto;
+    }
+
+    .photo-frame-laki .bingkai-laki,
+    .photo-frame-wanita .bingkai-wanita {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 220px;
+      height: 220px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .photo-frame-laki .foto-laki,
+    .photo-frame-wanita .foto-wanita {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      z-index: 1;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .nama-pengantin-pria,
+    .nama-pengantin-wanita {
+      text-align: center;
+      font-family: 'Brush Script MT', cursive;
+      font-size: 32px;
+      color: #8b4513;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    .simbol-and {
+      font-size: 48px;
+      text-align: center;
+      color: #a0522d;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-family: 'Georgia', cursive;
+    }
+
+    .judul-sagoe {
+      font-family: 'Dancing Script', cursive;
+      font-size: 36px;
+      color: #5a3e2b;
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    .judul-sub {
+      font-family: 'Dancing Script', cursive;
+      font-size: 28px;
+      color: #8b4513;
+      text-align: center;
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+
+    .info-acara {
+      text-align: justify;
+      font-size: 16px;
+      color: #333;
+      line-height: 1.6;
+      margin: 0 auto;
+      max-width: 600px;
+    }
+
+    .info-acara p {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  
+  <div class="splash" id="splash">
+    <div class="corner-decor top-left"></div>
+    <div class="corner-decor top-right"></div>
+    <div class="corner-decor bottom-left"></div>
+    <div class="corner-decor bottom-right"></div>
+
+    <div class="photo-frame">
+      <img src="bingkai bunga.png" class="bingkai" alt="Bingkai Bunga">
+      <img src="pengantin.jpg" class="foto" alt="Foto Pengantin">
+    </div>
+
+    <p>Demikianlah mereka bukan lagi dua, melainkan satu. karena itu, apa yang telah dipersatukan Allah, tidak dapat diceraikan manusia.</p>
+    <p>(Matius 19:6)</p>
+
+    <button onclick="bukaUndangan()">Buka Undangan</button>
+  </div>
+
+  
+  <div class="content" id="content">
+    <button class="btn-kembali" onclick="kembaliKeSplash()">←</button>
+    <div class="card">
+      <div class="judul-wedding">The Wedding of<br>Venan & Asty</div>
+
+      <p><strong>Kepada Yth.<br>Bapak/Ibu/Saudara/i</strong></p>
+      <p>Keluarga Besar Politeknik Elbajo Commodus</p>
+
+      <p><strong>Shalom</strong></p>
+      <p>
+        Tuhan membuat segala sesuatu indah pada waktunya.<br>
+        Indah pada saat Dia mempertemukan,<br>
+        indah pada saat Dia menumbuhkan kasih.
+      </p>
+
+      
+      <div class="photo-frame-laki">
+        <img src="bingkai bulat.png" class="bingkai-laki" alt="Bingkai">
+        <img src="pengantin pria.jpg" class="foto-laki" alt="Foto Pengantin Pria">
+      </div>
+      <p class="nama-pengantin-pria">Venansius Jehaut. S, Kom</p>
+      <p>
+        Anak bungsu dari 10 bersaudara dari pasangan Bapak Oktavianus Jedaut & Ibu Febronia Dima<br>
+        dari Lembor Wae Nakeng
+      </p>
+
+    
+      <div class="simbol-and">&</div>
+
+      <!-- PENGANTIN WANITA -->
+      <div class="photo-frame-wanita">
+        <img src="bingkai bulat.png" class="bingkai-wanita" alt="Bingkai">
+        <img src="pengantin wanita.jpg" class="foto-wanita" alt="Foto Pengantin Wanita">
+      </div>
+      <p class="nama-pengantin-wanita">ASTIANA JELYTA. S, Kom</p>
+      <p>
+        Anak ke-5 dari 6 bersaudara, dari pasangan Bapak Aldinan Moa dan Ibu Maria Laura Kartini<br>
+        dari Sano Nggoang
+      </p>
+
+      
+      <p class="judul-sagoe">Save the Date</p>
+      <div class="info-acara">
+        <p class="judul-sub">Pemberkatan Nikah</p>
+        <p>
+          Senin, 29 September 2025<br>
+          Pukul 09:00 WIB - 11:00 WIB<br>
+          Pemberkatan Nikah di Gereja ST. Yakobus Lembor
+        </p>
+
+        <p class="judul-sub">Resepsi Pernikahan</p>
+        <p>
+          Senin, 29 September 2025<br>
+          Pukul 11:30 WIB sampai selesai<br>
+          Di depan halaman rumah Bapak Oktavianus Jedaut,<br>
+          Lembor Wae Nakeng
+        </p>
+      </div>
+
+      
+      <p>Merupakan kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
+
+      
+      <div class="judul-sagoe">Transfer Ucapan Kasih</div>
+      <div class="info-acara" style="text-align: center;">
+        <p>
+          Bagi keluarga dan sahabat yang tidak dapat hadir secara langsung,namun ingin mengirimkan tanda kasih, dapat mengirimkannya melalui rekening berikut:
+        </p>
+        <p style="font-size: 18px; font-weight: bold; margin-top: 20px; color: #5a3e2b;">
+          Bank BCA<br>
+          1234567890<br>
+          a.n. Venansius Jehaut
+        </p>
+      </div>
+
+      <div class="footer">
+        VenanAstyWedding ✝️
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function bukaUndangan() {
+      document.getElementById('splash').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+    }
+
+    function kembaliKeSplash() {
+      document.getElementById('content').style.display = 'none';
+      document.getElementById('splash').style.display = 'flex';
+    }
+  </script>
+</body>
+</html>
