@@ -13,10 +13,10 @@
       margin: 0;
       font-family: 'Times New Roman', serif;
       background-color: #e8d2ae;
-      background-color: #e8d2ae;
       color: #333;
     }
 
+    /* ===== SPLASH ===== */
     .splash {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -32,7 +32,7 @@
       text-align: center;
       padding: 20px;
       overflow-y: auto;
-      color: #5a3e2b; /* warna teks agar kontras di background gambar */
+      color: #5a3e2b;
       text-shadow: 0 0 5px rgba(255,255,255,0.8);
     }
 
@@ -73,7 +73,9 @@
       margin-bottom: 20px;
     }
 
-    .splash button {
+    .splash button,
+    .gallery button,
+    .content .btn-lanjut {
       padding: 12px 24px;
       font-size: 16px;
       background-color: #5a3e2b;
@@ -100,10 +102,99 @@
     .bottom-left { bottom: 0; left: 0; }
     .bottom-right { bottom: 0; right: 0; }
 
+    /* ===== GALERI (slide baru) ===== */
+    .gallery {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #e8d2ae;
+      z-index: 9;
+      overflow-y: auto;
+      padding: 40px 20px 60px;
+      text-align: center;
+    }
+
+    .gallery .judul-sagoe {
+      margin-top: 10px;
+    }
+
+    .gallery-sub {
+      font-size: 15px;
+      color: #6b4a30;
+      max-width: 500px;
+      margin: 0 auto 30px;
+      line-height: 1.6;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      max-width: 520px;
+      margin: 0 auto 35px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      border: 3px solid #fff;
+      cursor: pointer;
+    }
+
+    .gallery-grid .foto-lebar {
+      grid-column: span 2;
+      height: 220px;
+    }
+
+    .gallery-nav {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .gallery-nav .btn-kembali-inline {
+      background-color: transparent;
+      color: #5a3e2b;
+      border: 2px solid #5a3e2b;
+    }
+
+    /* Lightbox untuk zoom foto galeri */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: 85vh;
+      border-radius: 8px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 25px;
+      color: white;
+      font-size: 32px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* ===== KONTEN UNDANGAN ===== */
     .content {
       display: none;
       background-image: url('tuhan yesus.jpg');
-      background-size: %;
+      background-size: cover;
       background-repeat: no-repeat;
       background-position: center top;
       background-attachment: fixed;
@@ -151,9 +242,7 @@
       z-index: 100;
     }
 
-    p {
-      text-align: center;
-    }
+    p { text-align: center; }
 
     .photo-frame-laki,
     .photo-frame-wanita {
@@ -233,14 +322,12 @@
       max-width: 600px;
     }
 
-    .info-acara p {
-      text-align: center;
-    }
+    .info-acara p { text-align: center; }
   </style>
 </head>
 <body>
 
-  
+  <!-- ===== SLIDE 1: SPLASH ===== -->
   <div class="splash" id="splash">
     <div class="corner-decor top-left"></div>
     <div class="corner-decor top-right"></div>
@@ -255,12 +342,39 @@
     <p>Demikianlah mereka bukan lagi dua, melainkan satu. karena itu, apa yang telah dipersatukan Allah, tidak dapat diceraikan manusia.</p>
     <p>(Matius 19:6)</p>
 
-    <button onclick="bukaUndangan()">Buka Undangan</button>
+    <button onclick="bukaGaleri()">Buka Undangan</button>
   </div>
 
-  
+  <!-- ===== SLIDE 2: GALERI FOTO ===== -->
+  <div class="gallery" id="gallery">
+    <p class="judul-sagoe">Our Moments</p>
+    <p class="gallery-sub">Beberapa kenangan perjalanan kasih Venan &amp; Asty sebelum hari bahagia ini.</p>
+
+    <div class="gallery-grid">
+      <img src="galeri1.jpg" alt="Kenangan 1" onclick="bukaLightbox(this.src)">
+      <img src="galeri2.jpg" alt="Kenangan 2" onclick="bukaLightbox(this.src)">
+      <img src="galeri3.jpg" alt="Kenangan 3" onclick="bukaLightbox(this.src)">
+      <img src="galeri4.jpg" alt="Kenangan 4" onclick="bukaLightbox(this.src)">
+      <img src="galeri5.jpg" alt="Kenangan 5" class="foto-lebar" onclick="bukaLightbox(this.src)">
+      <img src="galeri6.jpg" alt="Kenangan 6" onclick="bukaLightbox(this.src)">
+      <img src="galeri7.jpg" alt="Kenangan 7" onclick="bukaLightbox(this.src)">
+    </div>
+
+    <div class="gallery-nav">
+      <button class="btn-kembali-inline" onclick="kembaliKeSplashDariGaleri()">← Kembali</button>
+      <button onclick="bukaUndangan()">Lanjut ke Undangan →</button>
+    </div>
+  </div>
+
+  <!-- Lightbox foto -->
+  <div class="lightbox" id="lightbox" onclick="tutupLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img src="" id="lightbox-img" alt="Preview foto">
+  </div>
+
+  <!-- ===== SLIDE 3: UNDANGAN UTAMA ===== -->
   <div class="content" id="content">
-    <button class="btn-kembali" onclick="kembaliKeSplash()">←</button>
+    <button class="btn-kembali" onclick="kembaliKeGaleri()">←</button>
     <div class="card">
       <div class="judul-wedding">The Wedding of<br>Venan & Asty</div>
 
@@ -274,7 +388,6 @@
         indah pada saat Dia menumbuhkan kasih.
       </p>
 
-      
       <div class="photo-frame-laki">
         <img src="bingkai bulat.png" class="bingkai-laki" alt="Bingkai">
         <img src="pengantin pria.jpg" class="foto-laki" alt="Foto Pengantin Pria">
@@ -285,10 +398,8 @@
         dari Lembor Wae Nakeng
       </p>
 
-    
       <div class="simbol-and">&</div>
 
-      <!-- PENGANTIN WANITA -->
       <div class="photo-frame-wanita">
         <img src="bingkai bulat.png" class="bingkai-wanita" alt="Bingkai">
         <img src="pengantin wanita.jpg" class="foto-wanita" alt="Foto Pengantin Wanita">
@@ -299,7 +410,6 @@
         dari Sano Nggoang
       </p>
 
-      
       <p class="judul-sagoe">Save the Date</p>
       <div class="info-acara">
         <p class="judul-sub">Pemberkatan Nikah</p>
@@ -318,10 +428,8 @@
         </p>
       </div>
 
-      
       <p>Merupakan kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
 
-      
       <div class="judul-sagoe">Transfer Ucapan Kasih</div>
       <div class="info-acara" style="text-align: center;">
         <p>
@@ -341,14 +449,33 @@
   </div>
 
   <script>
-    function bukaUndangan() {
+    function bukaGaleri() {
       document.getElementById('splash').style.display = 'none';
+      document.getElementById('gallery').style.display = 'block';
+    }
+
+    function kembaliKeSplashDariGaleri() {
+      document.getElementById('gallery').style.display = 'none';
+      document.getElementById('splash').style.display = 'flex';
+    }
+
+    function bukaUndangan() {
+      document.getElementById('gallery').style.display = 'none';
       document.getElementById('content').style.display = 'block';
     }
 
-    function kembaliKeSplash() {
+    function kembaliKeGaleri() {
       document.getElementById('content').style.display = 'none';
-      document.getElementById('splash').style.display = 'flex';
+      document.getElementById('gallery').style.display = 'block';
+    }
+
+    function bukaLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').style.display = 'flex';
+    }
+
+    function tutupLightbox() {
+      document.getElementById('lightbox').style.display = 'none';
     }
   </script>
 </body>
