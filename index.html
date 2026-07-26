@@ -147,6 +147,20 @@
       transition: transform 0.8s ease, opacity 0.8s ease;
     }
 
+    .gallery-grid img {
+  width: 100%;
+  height: 80vw;
+  max-height: 480px;
+  object-fit: cover;
+  object-position: top center;  /* baris baru — fokus crop ke bagian atas/wajah */
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  border: 4px solid #fff;
+  cursor: pointer;
+  opacity: 0;
+  transition: transform 1.8s cubic-bezier(0.25, 0.1, 0.25, 1), opacity 1.8s ease;
+}
+
     .gallery-grid img.slide-left {
       transform: translateX(-120%);
     }
