@@ -102,7 +102,7 @@
     .bottom-left { bottom: 0; left: 0; }
     .bottom-right { bottom: 0; right: 0; }
 
-    /* ===== GALERI (slide baru) ===== */
+    /* ===== GALERI ===== */
     .gallery {
       display: none;
       position: fixed;
@@ -127,26 +127,38 @@
     }
 
     .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      max-width: 480px;
       margin: 0 auto 35px;
     }
 
     .gallery-grid img {
       width: 100%;
-      height: 180px;
+      height: 80vw;
+      max-height: 480px;
       object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-      border: 3px solid #fff;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+      border: 4px solid #fff;
       cursor: pointer;
+      opacity: 0;
+      transition: transform 0.8s ease, opacity 0.8s ease;
     }
 
-    .gallery-grid .foto-lebar {
-      grid-column: span 2;
-      height: 220px;
+    .gallery-grid img.slide-left {
+      transform: translateX(-120%);
+    }
+
+    .gallery-grid img.slide-right {
+      transform: translateX(120%);
+    }
+
+    .gallery-grid.show img.slide-left,
+    .gallery-grid.show img.slide-right {
+      transform: translateX(0);
+      opacity: 1;
     }
 
     .gallery-nav {
@@ -161,7 +173,7 @@
       border: 2px solid #5a3e2b;
     }
 
-    /* Lightbox untuk zoom foto galeri */
+    /* Lightbox */
     .lightbox {
       display: none;
       position: fixed;
@@ -350,14 +362,14 @@
     <p class="judul-sagoe">Our Moments</p>
     <p class="gallery-sub">Beberapa kenangan perjalanan kasih Venan &amp; Asty sebelum hari bahagia ini.</p>
 
-    <div class="gallery-grid">
-      <img src="galeri1.jpg" alt="Kenangan 1" onclick="bukaLightbox(this.src)">
-      <img src="galeri2.jpg" alt="Kenangan 2" onclick="bukaLightbox(this.src)">
-      <img src="galeri3.jpg" alt="Kenangan 3" onclick="bukaLightbox(this.src)">
-      <img src="galeri4.jpg" alt="Kenangan 4" onclick="bukaLightbox(this.src)">
-      <img src="galeri5.jpg" alt="Kenangan 5" class="foto-lebar" onclick="bukaLightbox(this.src)">
-      <img src="galeri6.jpg" alt="Kenangan 6" onclick="bukaLightbox(this.src)">
-      <img src="galeri7.jpg" alt="Kenangan 7" onclick="bukaLightbox(this.src)">
+    <div class="gallery-grid" id="gallery-grid">
+      <img src="galeri1.jpg" alt="Kenangan 1" class="slide-left" onclick="bukaLightbox(this.src)">
+      <img src="galeri2.jpg" alt="Kenangan 2" class="slide-right" onclick="bukaLightbox(this.src)">
+      <img src="galeri3.jpg" alt="Kenangan 3" class="slide-left" onclick="bukaLightbox(this.src)">
+      <img src="galeri4.jpg" alt="Kenangan 4" class="slide-right" onclick="bukaLightbox(this.src)">
+      <img src="galeri5.jpg" alt="Kenangan 5" class="slide-left" onclick="bukaLightbox(this.src)">
+      <img src="galeri6.jpg" alt="Kenangan 6" class="slide-right" onclick="bukaLightbox(this.src)">
+      <img src="galeri7.jpg" alt="Kenangan 7" class="slide-left" onclick="bukaLightbox(this.src)">
     </div>
 
     <div class="gallery-nav">
@@ -452,6 +464,12 @@
     function bukaGaleri() {
       document.getElementById('splash').style.display = 'none';
       document.getElementById('gallery').style.display = 'block';
+
+      const grid = document.getElementById('gallery-grid');
+      grid.classList.remove('show');
+      // reset dulu biar animasinya bisa diulang tiap kali slide dibuka
+      void grid.offsetWidth;
+      setTimeout(() => grid.classList.add('show'), 50);
     }
 
     function kembaliKeSplashDariGaleri() {
